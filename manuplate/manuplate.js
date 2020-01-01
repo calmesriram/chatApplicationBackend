@@ -21,9 +21,9 @@ exports.fileFilter = (req, file, cb) => {
 
 exports.upload = mod.multer({
     storage: this.storage,
-    // limits: {
-    //   fileSize: 1024 * 1024 * 5
-    // },
+    limits: {
+      fileSize: 52428800
+    },
     fileFilter: this.fileFilter
 });
 
@@ -186,7 +186,9 @@ exports.getprofile = (req, res) => {
     try { 
         let p = req.params.username;
         console.log(test+"/"+p)
-        user_schema.findOne({ "username": req.params.username }).then(result => {             
+        console.log(p)
+        user_schema.findOne({ "username": req.params.username }).then(result => {   
+            console.log("data",result)          
                 mod.fs.readFile(test+"/"+result['profile'], (err, data) => {
             // mod.fs.readFile(test+"/"+p, (err, data) => {
                 if (err) {
@@ -199,7 +201,7 @@ exports.getprofile = (req, res) => {
                     res.writeHead(200, { 'Content-type': 'image/jpg' });
                     res.end(data);
                 }
-            })
+            })            
         })
         
     } catch (e) {

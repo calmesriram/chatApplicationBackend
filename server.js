@@ -2,7 +2,6 @@ let mod = require('./applibrary/localmodules');
 require('custom-env').env()
 express = mod.express;
 var app = express();
-require('./routes/routes')(app);
 app.use(mod.bodyparser.json());
 app.use(mod.bodyparser.urlencoded({ extended: true }));
 app.use(mod.cors());
@@ -11,6 +10,7 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+require('./routes/routes')(app);
 
 mod.mongoose.connection.on('connected', function () {
     console.log('Connection to Mongo established.');

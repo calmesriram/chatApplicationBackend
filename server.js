@@ -19,7 +19,7 @@ mod.mongoose.connection.on('connected', function () {
     }
 });
 
-mod.mongoose.connect(process.env.clouddb, { dbName:"Chat",useUnifiedTopology: true,useNewUrlParser: true  }, function (err, client) {
+mod.mongoose.connect("mongodb+srv://sriram:sriram@cluster0-htdg9.mongodb.net/", { dbName:"Chat",useUnifiedTopology: true,useNewUrlParser: true  }, function (err, client) {
     if (err) {
         console.log("mongo error", err);
         return;

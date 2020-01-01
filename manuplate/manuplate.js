@@ -113,7 +113,6 @@ exports.conversationdet = (req, res) => {
             res.json({ "data": result, "bool": true })
             res.end();
         })
-
     } catch (e) {
         res.json(e)
         res.end();

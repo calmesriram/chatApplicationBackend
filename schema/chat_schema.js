@@ -7,7 +7,7 @@ var chat_schema=mongoose.Schema({
             type:String           
         }, 
     conversationid:{
-            type:Number           
+            type:String           
         }, 
     time :{
         type:String,

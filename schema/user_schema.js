@@ -14,6 +14,7 @@ var user_schema = mongoose.Schema({
         type:String,
         default:"defaultuserimage.png"
     },
+    userrequest:[{requestname: String, requeststatus: String}],
     userfiles:[],
     time :{
         type:String,

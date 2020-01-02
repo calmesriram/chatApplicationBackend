@@ -65,6 +65,43 @@ exports.login = (req, res) => {
     }
 
 }
+exports.userrequest = (req, res) => {
+    try {
+        console.log(req.body)
+        let data  ={
+            requestname:req.body.requestname,
+            requeststatus:false
+        }
+        user_schema.findOneAndUpdate({email: req.body.email}, {$push: {userrequest: data}}).then(result => {
+        // user_schema.findOneAndUpdate(req.body).then(result => {
+            console.log("result",result)
+            if(result == null){
+                res.json({data:result,status:false})
+                res.end();     
+            }
+            res.json({data:result,status:true})
+          res.end();
+        })        
+    } catch (e) {
+        res.json(e)
+        res.end();
+    }
+
+}
+exports.acceptrequest = (req, res) => {
+    try {
+        console.log(req.body)        
+        // db.usertables.updateOne({"email":"ram@mnw.in","userrequest.requestname":"maddy"},{$set:{"userrequest.$.requeststatus":"true"}})
+        user_schema.updateOne({"email":req.body.email,"userrequest.requestname":req.body.requestname},{$set:{"userrequest.$.requeststatus":true}}).then(result =>{        
+            res.json({data:result,status:true})
+          res.end();
+        })        
+    } catch (e) {
+        res.json(e)
+        res.end();
+    }
+
+}
 exports.listusers = (req, res) => {
     try {
         user_schema.find({}).then(result => {

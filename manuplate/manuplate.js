@@ -146,7 +146,7 @@ exports.conversationdet = (req, res) => {
 
         console.log(req.body, "daily data")
         chat_schema.find(req.body).then(result => {
-            // console.log(result, "conversation ")
+            console.log(result, "conversation ")
             res.json({ "data": result, "bool": true })
             res.end();
         })
@@ -162,6 +162,7 @@ exports.chat = (req, res) => {
         let senderId = req.body['senderid'];
         let receiverId = req.body['receiverid'];
         let messagE = req.body['message'];
+        let sendername = req.body['sendername']
         // {"participants":req.body['senderid'],"participants":req.body['receiverid']}
         conversation_schema.find({ "participants": { $all: [senderId, receiverId] } }).then(result => {
             console.log(result, "result")
@@ -176,6 +177,7 @@ exports.chat = (req, res) => {
                     var chat = new chat_schema({
                         senderid: senderId,
                         message: messagE,
+                        sendername:sendername,
                         conversationid: uniqueid
                     })
                     chat.save().then((data) => {
@@ -190,6 +192,7 @@ exports.chat = (req, res) => {
                 var chat = new chat_schema({
                     senderid: senderId,
                     message: messagE,
+                    sendername:sendername,
                     conversationid: result[0].id
                 })
                 chat.save().then((data) => {
